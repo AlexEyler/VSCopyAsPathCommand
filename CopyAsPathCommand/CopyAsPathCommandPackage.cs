@@ -13,6 +13,7 @@ namespace CopyAsPathCommand
         CopyAsPathCommandPackage.ProductDescription, "1.0")]
     [Guid(CopyAsPathCommandPackage.PackageGuidString)]
     [ProvideAutoLoad(UIContextGuids.SolutionExists)]
+    [ProvideOptionPage(typeof(OptionsPage), "Environment", "Copy as Path Command", 0, 0, true)]
     public sealed class CopyAsPathCommandPackage : Package
     {
         public const string ProductName = "Copy as path command";

@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="CopyAsPathCommand.cs" />
     <Compile Include="CopyAsPathCommandPackage.cs" />
+    <Compile Include="OptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

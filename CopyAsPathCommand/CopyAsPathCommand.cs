@@ -12,32 +12,41 @@ namespace CopyAsPathCommand
         public const int CommandId = 0x0100;
         public static readonly Guid CommandSet = new Guid("cceebeea-e540-447e-8b6d-ffec0ffd311d");
         private UIHierarchy solutionExplorer;
+        private CopyAsPathCommandPackage package;
 
-        private CopyAsPathCommand(IServiceProvider serviceProvider, UIHierarchy solutionExplorer)
+        private CopyAsPathCommand(CopyAsPathCommandPackage package, UIHierarchy solutionExplorer)
         {
-            Requires.NotNull(serviceProvider, nameof(serviceProvider));
+            Requires.NotNull(package, nameof(package));
             Requires.NotNull(solutionExplorer, nameof(solutionExplorer));
+            this.package = package;
+            this.solutionExplorer = solutionExplorer;
 
-            OleMenuCommandService commandService = serviceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            OleMenuCommandService commandService = package.QueryService<IMenuCommandService>() as OleMenuCommandService;
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(CommandSet, CommandId);
                 var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
                 commandService.AddCommand(menuItem);
             }
-
-            this.solutionExplorer = solutionExplorer;
         }
 
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            var optionsPage = package.GetDialogPage(typeof(OptionsPage)) as OptionsPage;
+            bool useQuotes = optionsPage?.QuotesOption ?? OptionsPage.DefaultQuotesOption;
+
             Array selectedItems = this.solutionExplorer.SelectedItems as Array;
             if (selectedItems != null)
             {
                 foreach (UIHierarchyItem item in selectedItems)
                 {
                     ProjectItem prjItem = item.Object as ProjectItem;
-                    string path = "\"" + prjItem.Properties.Item("FullPath").Value.ToString() + "\"";
+                    string path = prjItem.Properties.Item("FullPath").Value.ToString();
+                    if (useQuotes)
+                    {
+                        path = "\"" + path + "\"";
+                    }
+
                     Clipboard.SetText(path);
                 }
             }
@@ -45,11 +54,11 @@ namespace CopyAsPathCommand
 
         public static CopyAsPathCommand Instance { get; private set; }
 
-        public static void Initialize(IServiceProvider serviceProvider, UIHierarchy solutionExplorer)
+        public static void Initialize(CopyAsPathCommandPackage package, UIHierarchy solutionExplorer)
         {
-            Requires.NotNull(serviceProvider, nameof(serviceProvider));
+            Requires.NotNull(package, nameof(package));
             Requires.NotNull(solutionExplorer, nameof(solutionExplorer));
-            Instance = new CopyAsPathCommand(serviceProvider, solutionExplorer);
+            Instance = new CopyAsPathCommand(package, solutionExplorer);
         }
     }
 }
