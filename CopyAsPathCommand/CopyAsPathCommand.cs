@@ -11,7 +11,6 @@ namespace CopyAsPathCommand
     {
         public const int CommandId = 0x0100;
         public static readonly Guid CommandSet = new Guid("cceebeea-e540-447e-8b6d-ffec0ffd311d");
-
         private UIHierarchy solutionExplorer;
 
         private CopyAsPathCommand(IServiceProvider serviceProvider, UIHierarchy solutionExplorer)
@@ -30,15 +29,6 @@ namespace CopyAsPathCommand
             this.solutionExplorer = solutionExplorer;
         }
 
-        public static CopyAsPathCommand Instance { get; private set; }
-
-        public static void Initialize(IServiceProvider serviceProvider, UIHierarchy solutionExplorer)
-        {
-            Requires.NotNull(serviceProvider, nameof(serviceProvider));
-            Requires.NotNull(solutionExplorer, nameof(solutionExplorer));
-            Instance = new CopyAsPathCommand(serviceProvider, solutionExplorer);
-        }
-
         private void MenuItemCallback(object sender, EventArgs e)
         {
             Array selectedItems = this.solutionExplorer.SelectedItems as Array;
@@ -51,6 +41,15 @@ namespace CopyAsPathCommand
                     Clipboard.SetText(path);
                 }
             }
+        }
+
+        public static CopyAsPathCommand Instance { get; private set; }
+
+        public static void Initialize(IServiceProvider serviceProvider, UIHierarchy solutionExplorer)
+        {
+            Requires.NotNull(serviceProvider, nameof(serviceProvider));
+            Requires.NotNull(solutionExplorer, nameof(solutionExplorer));
+            Instance = new CopyAsPathCommand(serviceProvider, solutionExplorer);
         }
     }
 }

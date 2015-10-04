@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace CopyAsPathCommand
 {
@@ -11,6 +12,7 @@ namespace CopyAsPathCommand
     [InstalledProductRegistration(CopyAsPathCommandPackage.ProductName,
         CopyAsPathCommandPackage.ProductDescription, "1.0")]
     [Guid(CopyAsPathCommandPackage.PackageGuidString)]
+    [ProvideAutoLoad(UIContextGuids.SolutionExists)]
     public sealed class CopyAsPathCommandPackage : Package
     {
         public const string ProductName = "Copy as path command";
