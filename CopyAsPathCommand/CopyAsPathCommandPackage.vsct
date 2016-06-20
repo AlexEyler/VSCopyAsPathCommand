@@ -4,14 +4,23 @@
   <Extern href="vsshlids.h"/>
   <Commands package="guidCopyAsPathCommandPackage">
     <Groups>
-      <Group guid="guidCopyAsPathCommandPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidCopyAsPathCommandPackageCmdSet" id="DefaultItemGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+      </Group>
+      <Group guid="guidCopyAsPathCommandPackageCmdSet" id="FolderItemGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE"/>
       </Group>
     </Groups>
 
     <Buttons>
       <Button guid="guidCopyAsPathCommandPackageCmdSet" id="CopyAsPathCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidCopyAsPathCommandPackageCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidCopyAsPathCommandPackageCmdSet" id="DefaultItemGroup" />
+        <Strings>
+          <ButtonText>Copy as path</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCopyAsPathCommandPackageCmdSet" id="CopyAsPathCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidCopyAsPathCommandPackageCmdSet" id="FolderItemGroup" />
         <Strings>
           <ButtonText>Copy as path</ButtonText>
         </Strings>
@@ -22,7 +31,8 @@
   <Symbols>
     <GuidSymbol name="guidCopyAsPathCommandPackage" value="{d40a488d-23d0-44cc-99fb-f6dd0717ab7d}" />
     <GuidSymbol name="guidCopyAsPathCommandPackageCmdSet" value="{cceebeea-e540-447e-8b6d-ffec0ffd311d}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="FolderItemGroup" value="0x1040" />
+      <IDSymbol name="DefaultItemGroup" value="0x1020" />
       <IDSymbol name="CopyAsPathCommandId" value="0x0100" />
     </GuidSymbol>
   </Symbols>
