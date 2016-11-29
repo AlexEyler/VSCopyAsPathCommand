@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="CopyAsPathCommand.Alex Eyler.62e704cb-81ff-43ee-9f4a-57e1871c8252" Version="1.0" Language="en-US" Publisher="Alex Eyler" />
+    <Identity Id="CopyAsPathCommand.Alex Eyler.62e704cb-81ff-43ee-9f4a-57e1871c8252" Version="1.1" Language="en-US" Publisher="Alex Eyler" />
     <DisplayName>Copy as Path</DisplayName>
     <Description xml:space="preserve">Add a command to the context menu for project items that copies the absolute path of the item to the clipboard.</Description>
     <Icon>Resources\icon_32x32@2x.png</Icon>
     <PreviewImage>Resources\preview_image_200x200.png</PreviewImage>
   </Metadata>
   <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.IntegratedShell" Version="[14.0]" />
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0, 16.0)" />
   </Installation>
   <Dependencies>
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
@@ -17,4 +17,7 @@
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
 </PackageManifest>
